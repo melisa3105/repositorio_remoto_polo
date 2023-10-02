@@ -1,0 +1,39 @@
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+  <div class="form-container">
+    <mat-form-field>
+      <mat-label>ID del Perro</mat-label>
+      <input matInput type="number" formControlName="idPerro">
+    </mat-form-field>
+  </div>
+  <div class="form-container">
+    <mat-form-field>
+      <mat-label>Nombre del Perro</mat-label>
+      <input matInput type="text" formControlName="nombrePerro">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <mat-label>Estado del Perro</mat-label>
+    <input matInput type="text" formControlName="estadoPerro">
+  </mat-form-field>
+
+  <mat-checkbox formControlName="activo">Activo</mat-checkbox>
+
+  <mat-form-field>
+    <mat-label>Tamaño del Perro</mat-label>
+    <input matInput type="text" formControlName="tamanoPerro">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Color del Perro</mat-label>
+    <input matInput type="text" formControlName="colorPerro">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Distintivo</mat-label>
+    <input matInput type="text" formControlName="distintivo">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (ngSubmit)="onSubmit()" type="submit">Registrar</button>
+</form>
+  
