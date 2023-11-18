@@ -1,0 +1,22 @@
+<div class="centrar">
+  <mat-toolbar color="primary">
+    <h1>Login</h1>
+  </mat-toolbar>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="usuario" placeholder="Ingrese su usuario">
+      </mat-form-field>
+    </div>
+    
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="pass" placeholder="Ingrese su contraseña">
+      </mat-form-field>
+    </div>
+    
+      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</button>
+  </form>
+</div>

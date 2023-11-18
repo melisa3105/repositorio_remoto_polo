@@ -1,0 +1,34 @@
+<div class="container">
+
+    <h2>Mostrar Reuniones por día</h2>
+    <form [formGroup]="formulario" (ngSubmit)="onSubmitMostrarReunionesPorDia()">
+      <mat-form-field appearance="fill">
+        <mat-label>Seleccionar día:</mat-label>
+        <mat-select formControlName="diaSeleccionado">
+          <mat-option *ngFor="let dia of dias" [value]="dia">{{ dia }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+     
+      <button mat-raised-button color="primary" type="submit">Mostrar Reuniones</button>
+    </form>
+  
+    <div *ngIf="reunionesMostrar.length > 0">
+        <h3>Reuniones del día {{diaSeleccionado}}</h3>
+        <div>
+            <mat-list>
+                <mat-list-item class="caja" *ngFor="let reunion of reunionesMostrar">
+                    <div mat-line><strong>Hora:</strong> {{ reunion.hora }}</div>
+                    <div mat-line><strong>Duración:</strong> {{ reunion.duracion }}</div>
+                    <div mat-line><strong>Detalle:</strong> {{ reunion.detalle }}</div>
+                    <div class="linea"></div>
+                    <button mat-icon-button color="warn" (click)="eliminarReunion(reunion.id)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </div>
+    
+  </div>
+  
+  

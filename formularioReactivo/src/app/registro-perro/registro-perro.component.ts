@@ -11,13 +11,14 @@ export class RegistroPerroComponent {
 
   constructor(private fb: FormBuilder) {
     this.formulario = fb.group({
-      idPerro: [null, Validators.required],
+      idPerro: ['', Validators.compose( [ Validators.required,Validators.minLength(6),Validators.maxLength(6) ] ) ],
       nombrePerro: ['', Validators.required],
       estadoPerro: ['', Validators.required],
-      activo: [false],
-      tamanoPerro: [''],
-      colorPerro: [''],
-      distintivo: ['']
+      tamanoPerro: ['',Validators.required],
+      colorPerro: ['',Validators.required],
+      longitudPelaje: ['',Validators.required],
+      distintivo: [''],
+      activo: [true]
     });
   }
 
@@ -26,5 +27,18 @@ export class RegistroPerroComponent {
       // Aquí puedes enviar los datos del formulario al servidor o realizar otras acciones.
       console.log(this.formulario.value);
     }
+  }
+
+  registrarPerro(){
+    const datosPerro = this.formulario.value;
+    //enviar datos al servidor
+    console.log(datosPerro);
+  }
+  getErrorMessage() {
+    if (this.formulario.controls['idPerro'].hasError('required')) {
+      return 'Debes ingresar un id Perro';
+    }
+      return 'Id Perro inválido';
+    //return this.formulario.controls['idPerro'].hasError('minLength(6)') ? 'Id Perro inválido' : '';
   }
 }

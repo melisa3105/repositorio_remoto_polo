@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -26,8 +28,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatCheckboxModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSelectModule,
   ],
-  providers: [],
+  providers: [
+    //{provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

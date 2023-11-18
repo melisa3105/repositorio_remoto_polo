@@ -1,0 +1,10 @@
+.caja {
+    display:contents;
+}
+.linea {
+        border-top: 1px solid gray;
+        height: 2px;
+        max-width: 300px;
+        padding: 0;
+        margin: 20px auto 0 auto;
+      }
