@@ -9,7 +9,7 @@ import { EliminacionReunionComponent } from './eliminacion-reunion/eliminacion-r
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'administracion', component: AdministracionComponent,
+  { path: 'reuniones', component: AdministracionComponent,
       children: [
         { path: 'carga-reunion', component: CargaReunionComponent},
         { path: 'listado-reuniones', component: ListadoReunionesComponent},

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { LoginService } from '../login.service';
 
 @Component({
   selector: 'app-login',
@@ -7,22 +8,25 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm : FormGroup;
+  loginForm! : FormGroup;
 
-  constructor (private formBuilder : FormBuilder) {
-      this.loginForm = this.formBuilder.group({
-      usuario: ['', Validators.required ],
-      pass: ['', Validators.required]
-    });  
+  constructor (private fb : FormBuilder, private service: LoginService) { }  
+  
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+    usuario: ['', Validators.required ],
+    pass: ['', Validators.required]
+  });
   }
-
-  ngOnInit(): void {
-    
-  }
-  onSubmit() {
+  login() {
     if (this.loginForm.valid ) {
-      // lógica de autenticación 
       console.log('Formulario válido, usuario:', this.loginForm.value.usuario);
+      // lógica de autenticación con el servicio LoginService
+      this.service.login(this.loginForm.value.usuario, this.loginForm.value.pass).subscribe(token => {
+      //falta código en el suscribe (error)
+      //guardar token en el localstorage
+      sessionStorage.setItem('token',token);
+    });  
     } 
   }
 
