@@ -5,6 +5,6 @@ import { acceder } from "../controllers/login";
 
 const router = express.Router();
 
-router.get('/', acceder); // o post?
+router.post('/', acceder); // o get?
 
 export default router;
