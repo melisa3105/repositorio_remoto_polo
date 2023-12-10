@@ -16,7 +16,7 @@ export class ReunionService {
   mostrarReunionesPorDia(dia: string): Observable<Reunion[]> {
     return this.http.get<Reunion[]>(`${this.url}/${dia}`);
   }
-  cargarReunion(reunion: Reunion): Observable<Reunion> {
+  agregarReunion(reunion: Reunion): Observable<Reunion> {
     return this.http.post<Reunion>(this.url, reunion)
   }
   eliminarReunion(id: number) {

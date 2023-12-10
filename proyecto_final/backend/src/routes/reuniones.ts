@@ -1,14 +1,14 @@
 // RUTAS: enlaza la ruta /reuniones con las funcionalidades dentro del archivo reunion.ts dentro de la carpeta CONTROLLERS según si es post, get, delete
-import express, {Router} from "express";
-import { cargaReunion, listadoReuniones, eliminacionReunion } from "../controllers/reuniones";
+import {Router} from "express";
+import { agregarReunion, listadoReuniones, eliminacionReunion } from "../controllers/reuniones";
 
 
-const router = express.Router();
+const router = Router();
 
-router.post('/', cargaReunion);
+router.post('/agregar', agregarReunion);  
 
-router.get('/', listadoReuniones);
+router.get('/listado', listadoReuniones);
 
-router.delete('/:id', eliminacionReunion);
+router.delete('/eliminacion/:id', eliminacionReunion);
 
 export default router;

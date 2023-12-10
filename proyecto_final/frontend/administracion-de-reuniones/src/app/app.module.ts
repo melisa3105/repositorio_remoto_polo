@@ -5,15 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//Components
 import { LoginComponent } from './login/login.component';
 import { AdministracionComponent } from './administracion/administracion.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { CargaReunionComponent } from './carga-reunion/carga-reunion.component';
+import { AgregarReunionComponent } from './agregar-reunion/agregar-reunion.component';
 import { ListadoReunionesComponent } from './listado-reuniones/listado-reuniones.component';
 import { EliminacionReunionComponent } from './eliminacion-reunion/eliminacion-reunion.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
+//Material
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -30,7 +32,7 @@ import { HttpClientModule} from '@angular/common/http';
     LoginComponent,
     AdministracionComponent,
     PageNotFoundComponent,
-    CargaReunionComponent,
+    AgregarReunionComponent,
     ListadoReunionesComponent,
     EliminacionReunionComponent
   ],

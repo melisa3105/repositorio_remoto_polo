@@ -4,11 +4,11 @@
     </mat-toolbar>
 
     <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-      <a mat-tab-link routerLink="./carga-reunion" routerLinkActive="active"> Carga de Reunión </a>
-      <a mat-tab-link routerLink="./listado-reuniones" routerLinkActive="active"> Listado de Reuniones </a>
+      <a mat-tab-link routerLink="./agregar" routerLinkActive="active"> Agregar Reunión </a>
+      <a mat-tab-link routerLink="./listado" routerLinkActive="active"> Listado de Reuniones </a>
       <a mat-tab-link routerLink="/login" routerLinkActive="active"> Salir </a> <!-- faltaría hacer un logout = cerrar sesión-->
     </nav>
-    
+    <!-- podría mostrar nombre de usuario -->
     <mat-tab-nav-panel #tabPanel>
       <router-outlet></router-outlet>
     </mat-tab-nav-panel>

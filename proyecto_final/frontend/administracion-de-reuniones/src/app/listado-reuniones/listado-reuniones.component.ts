@@ -61,8 +61,8 @@ export class ListadoReunionesComponent implements OnInit {
 
   onSubmitMostrarReunionesPorDia() {
     this.diaSeleccionado = this.formulario.get('diaSeleccionado')?.value;
-   // this.reunionesMostrar = this.reuniones.filter(reunion => reunion.dia === this.diaSeleccionado);
-
+    this.reunionesMostrar = this.reuniones.filter(reunion => reunion.dia === this.diaSeleccionado);
+/*
     this.reunionService.mostrarReunionesPorDia(this.diaSeleccionado).subscribe((reuniones) => {
       this.reuniones = reuniones;
       // Filtrado de reuniones por el día seleccionado
@@ -72,6 +72,7 @@ export class ListadoReunionesComponent implements OnInit {
      console.error('Error al cargar las reuniones:', error);
       }
    );
+   */
   }
 
   

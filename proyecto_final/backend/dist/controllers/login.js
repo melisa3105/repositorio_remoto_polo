@@ -1,3 +1,6 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.acceder = void 0;
 //se toman los datos del request y son los datos con los que se va a trabajar, validar
 const acceder = (req, res) => {
     if (!req.body.dia) {
@@ -5,4 +8,4 @@ const acceder = (req, res) => {
     }
     res.end("lógica login falta");
 };
-export { acceder };
+exports.acceder = acceder;

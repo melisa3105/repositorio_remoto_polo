@@ -13,17 +13,22 @@
     </form>
   
     <div *ngIf="reunionesMostrar.length > 0">
-        <h3>Reuniones del día {{diaSeleccionado}}</h3>
+        <h3>Reuniones del día <strong> {{diaSeleccionado}} </strong></h3>
         <div>
             <mat-list>
                 <mat-list-item class="caja" *ngFor="let reunion of reunionesMostrar">
+                  <!-- Mejorar como se muestran las reuniones, con tablas?-->
                     <div mat-line><strong>Hora:</strong> {{ reunion.hora }}</div>
                     <div mat-line><strong>Duración:</strong> {{ reunion.duracion }}</div>
                     <div mat-line><strong>Detalle:</strong> {{ reunion.detalle }}</div>
-                    <div class="linea"></div>
+                   
                     <button mat-icon-button color="warn" (click)="eliminarReunion(reunion.id)">
                       <mat-icon>delete</mat-icon>
                     </button>
+
+                    <!-- Agregar botón editar <routerLink="./editar/{{reunion.id}}"> -->
+                    
+                    <div class="linea"></div>
                 </mat-list-item>
             </mat-list>
         </div>

@@ -1,5 +1,5 @@
 export class Reunion {
-    id: number = 0;
+    id: number = 0; //// id?: number = 0;
     dia: string | null = '';
     hora: number = 8;
     duracion: number = 1;
