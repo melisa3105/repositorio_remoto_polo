@@ -11,9 +11,7 @@ import { AdministracionComponent } from './administracion/administracion.compone
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AgregarReunionComponent } from './agregar-reunion/agregar-reunion.component';
 import { ListadoReunionesComponent } from './listado-reuniones/listado-reuniones.component';
-import { EliminacionReunionComponent } from './eliminacion-reunion/eliminacion-reunion.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
 
 //Material
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +23,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 
 import { HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { FormatoDuracionPipe } from './duracion-format.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { HttpClientModule} from '@angular/common/http';
     PageNotFoundComponent,
     AgregarReunionComponent,
     ListadoReunionesComponent,
-    EliminacionReunionComponent
+    FormatoDuracionPipe,
   ],
   imports: [
     BrowserModule,

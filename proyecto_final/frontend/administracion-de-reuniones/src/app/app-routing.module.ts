@@ -5,16 +5,15 @@ import { AdministracionComponent } from './administracion/administracion.compone
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AgregarReunionComponent } from './agregar-reunion/agregar-reunion.component';
 import { ListadoReunionesComponent } from './listado-reuniones/listado-reuniones.component';
-import { EliminacionReunionComponent } from './eliminacion-reunion/eliminacion-reunion.component';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'reuniones', component: AdministracionComponent,
       children: [
         { path: 'agregar', component: AgregarReunionComponent},
-        { path: 'listado', component: ListadoReunionesComponent},
+        { path: 'listar', component: ListadoReunionesComponent},
         /*{ path: 'editar/:id', component: ____ReunionesComponent},*/
-        { path: 'eliminacion/:id', component: EliminacionReunionComponent}
       ] 
   },
   { path: '', redirectTo:'/login', pathMatch:'full'},

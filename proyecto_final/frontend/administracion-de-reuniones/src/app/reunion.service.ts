@@ -9,17 +9,19 @@ import { Reunion } from './reunion';
 })
 export class ReunionService {
 
-  url = 'http://localhost:4444/reuniones';
+  url = 'http://localhost:4444/reuniones/';
 
   constructor(private http: HttpClient) { }
 
-  mostrarReunionesPorDia(dia: string): Observable<Reunion[]> {
-    return this.http.get<Reunion[]>(`${this.url}/${dia}`);
+  listarReuniones(): Observable<Reunion[]> {
+    return this.http.get<Reunion[]>(`${this.url}/listar`);
   }
-  agregarReunion(reunion: Reunion): Observable<Reunion> {
-    return this.http.post<Reunion>(this.url, reunion)
+
+  agregarReunion(reunion: Reunion): Observable<void> {
+    return this.http.post<void>(`${this.url}/agregar`, reunion)
   }
-  eliminarReunion(id: number) {
-    return this.http.delete<Reunion>(`${this.url}/${id}`);
+
+  eliminarReunion(id: number): Observable<void>  {
+    return this.http.delete<void>(`${this.url}/eliminar/${id}`);
   }
 }

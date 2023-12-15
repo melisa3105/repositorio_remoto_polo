@@ -12,46 +12,13 @@ export class ListadoReunionesComponent implements OnInit {
   mensaje = '';
   formulario: FormGroup;
   diaSeleccionado = 'Lunes';
-  //reuniones: Reunion[] = [];
+  reuniones: Reunion[] = [];
   reunionesMostrar : Reunion[] = [];
-  reuniones: Reunion[] = [
-    {
-      id: 1,
-      dia: 'Lunes',
-      hora: 10,
-      duracion: 2,
-      detalle: 'Reunión de equipo',
-    },
-    {
-      id: 2,
-      dia: 'Martes',
-      hora: 14,
-      duracion: 1,
-      detalle: 'Entrevista de trabajo',
-    },
-    {
-      id: 3,
-      dia: 'Miércoles',
-      hora: 16,
-      duracion: 3,
-      detalle: 'Presentación de proyecto',
-    },
-    {
-      id: 4,
-      dia: 'Miércoles',
-      hora: 8,
-      duracion: 3,
-      detalle: 'Presentación de power point',
-    },
-  ];
-
-
-  // Días posibles para el selector
   dias: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
   constructor(private formBuilder: FormBuilder, private reunionService: ReunionService) {
     this.formulario = this.formBuilder.group({
-      diaSeleccionado: ['Lunes'] // Valor por defecto
+      diaSeleccionado: ['Lunes'] // valor por defecto
     });
   }
 
@@ -61,26 +28,22 @@ export class ListadoReunionesComponent implements OnInit {
 
   onSubmitMostrarReunionesPorDia() {
     this.diaSeleccionado = this.formulario.get('diaSeleccionado')?.value;
-    this.reunionesMostrar = this.reuniones.filter(reunion => reunion.dia === this.diaSeleccionado);
-/*
-    this.reunionService.mostrarReunionesPorDia(this.diaSeleccionado).subscribe((reuniones) => {
-      this.reuniones = reuniones;
-      // Filtrado de reuniones por el día seleccionado
-     this.reunionesMostrar = this.reuniones.filter(reunion => reunion.dia === this.diaSeleccionado);
-     },
-     (error) => {
-     console.error('Error al cargar las reuniones:', error);
-      }
-   );
-   */
+    this.reunionService.listarReuniones().subscribe({
+      next: (reuniones) => {
+        this.reuniones = reuniones;
+        this.reunionesMostrar = this.reuniones.filter(reunion => reunion.dia === this.diaSeleccionado);
+      },
+      error: (error) => {
+        this.mensaje ='Error al mostrar las reuniones:', error;
+        }
+      });
   }
 
   
   eliminarReunion(id: number) {
-    // Acá el código para eliminar la reunión con el id proporcionado
-    // Se puede usar un servicio para realizar la llamada de eliminación.
     this.reunionService.eliminarReunion(id).subscribe(() => 
-    this.mensaje = 'Reunión eliminada');
+    this.onSubmitMostrarReunionesPorDia()
+    )
   }
 
   // editar?
