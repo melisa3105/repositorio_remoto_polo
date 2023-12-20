@@ -1,61 +1,47 @@
 //npm start
 //detengo ctrl + c
 
-import express, {Request, Response} from "express";
+import express, {NextFunction, Request, Response} from "express";
 import morgan from "morgan";
 import cors from "cors";
 import dotenv from "dotenv";
-
-import rutaReuniones from "../routes/reuniones";
-//import rutaLogin from "../routes/login";
-//import jsonwebtoken from "jsonwebtoken";
-
-import db from '../db/connection';
+import jsonwebtoken from "jsonwebtoken";
+import rutaReuniones from "../routes/reuniones.routes";
+import rutaAuth from "../routes/auth.routes";
 
 dotenv.config();
 const puerto = process.env.PORT || 5555;
 
 const app = express();
-/*
-//Middleware autenticar auth:
-function auth(req: Request, res: Response, next: any){
-    const token = req.headers.authorization;
-    if(token){
-        const payload = jsonwebtoken.verify(token, "1234SECRETO_DEL_JWT");
-        //console.log(payload);
-        next();
+
+//Middleware verificar token:
+function verificarToken(req: Request, res: Response, next: NextFunction){
+    
+    //const token = req.headers['authorization'];
+   
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWVsaXNhIiwiaXNzIjoiMjAyMy0xMi0xOVQyMzo0Njo0OS40MzhaIiwiaWF0IjoxNzAzMDI5NjA5fQ.gHDJeCzJ1C8uJ-BuYmTtFErtJbSRHpZcwKU5cuNA8II";
+    console.log('token que hay que verificar:',token);
+    
+    if(token){ //agregar try catch
+        const payload = jsonwebtoken.verify(token, "ESTE_ES_EL_SECRET_DEL_JWT_1234");
+        console.log(payload);
+        next(); // te deja seguir
     } else {
-        res.status(401);
+        res.status(401); //unauthorized
+        console.log('No hay token');
         res.end();
     }
 }
-*/
+
 app.use(cors());
 
 app.use(express.json());
 
 app.use(morgan("dev"));
 
-// Función que autentica la conexión a la base de datos
-async function autenticarBaseDeDatos(db:any): Promise<void> {
-    try {
-      await db.authenticate();
-      console.log('Base de datos conectada');
-    } catch (error) {
-      console.error('Error al autenticar la base de datos:', error);
-    }
-  }
-  
-autenticarBaseDeDatos(db);
+app.use('/auth', rutaAuth); 
 
-/*
-app.get('/', (req: Request,res: Response) => {
-    res.send('Hello World 3!');
-});
-*/
+app.use('/reuniones', verificarToken, rutaReuniones); //importado rutaReuniones //Servicio protegido que tiene que tener un token válido que obtengo de auth
+//app.use('/reuniones', rutaReuniones); //importado rutaReuniones //Servicio protegido que tiene que tener un token válido que obtengo de auth
 
-//app.use('/login', rutaLogin); // falta
-//app.use('/reuniones', auth, rutaReuniones); //importado rutaReuniones //Servicio protegido que tiene que tener un token válido que obtengo de auth
-app.use('/reuniones', rutaReuniones); //importado rutaReuniones //Servicio protegido que tiene que tener un token válido que obtengo de auth
-
-app.listen(puerto,() => { console.log('El servidor está escuchando en puerto: '+puerto);});
+app.listen(puerto,() => { console.log('El servidor está escuchando en puerto: '+ puerto);});

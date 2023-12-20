@@ -7,5 +7,5 @@ const router = (0, express_1.Router)();
 router.post('/agregar', reuniones_1.agregarReunion);
 router.get('/listar', reuniones_1.listarReuniones);
 router.delete('/eliminar/:id', reuniones_1.eliminarReunion);
-router.put('/editar/:id', reuniones_1.editarReunion);
+//router.put('/editar/:id', editarReunion);
 exports.default = router;

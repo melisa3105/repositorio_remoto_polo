@@ -8,37 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.eliminarReunion = exports.listarReuniones = exports.agregarReunion = void 0;
-const reunion_1 = __importDefault(require("../models/reunion"));
+const reunion_respositories_1 = require("../repositories/reunion.respositories");
 const agregarReunion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //   if (!req.body.dia) {
-    //      res.status(400);
-    //  }
     const { body } = req;
     try {
-        yield reunion_1.default.create(body);
-        res.json({
-            mensaje: 'La reunión ha sido agregada con éxito',
-            body
-        });
+        const result = yield (0, reunion_respositories_1.addReunion)(body);
+        res.json(result);
     }
     catch (error) {
-        console.log(error);
-        res.json({
-            msg: `Ocurrió un error`
-        });
+        res.status(500).json({ msg: error || 'Ocurrió un error' });
     }
 });
 exports.agregarReunion = agregarReunion;
 const listarReuniones = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const listado = yield reunion_1.default.findAll({
-            order: [['hora', 'ASC']]
-        });
+        const listado = yield (0, reunion_respositories_1.getAllReuniones)();
         res.json(listado);
     }
     catch (error) {
@@ -48,14 +34,19 @@ const listarReuniones = (req, res) => __awaiter(void 0, void 0, void 0, function
 });
 exports.listarReuniones = listarReuniones;
 const eliminarReunion = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //req.params.id
     const { id } = req.params;
-    const reunion = yield reunion_1.default.findByPk(id);
-    if (reunion) {
-        yield reunion.destroy();
-        res.json({ msg: `La reunión fue eliminada con éxito` });
+    try {
+        const eliminada = yield (0, reunion_respositories_1.deleteReunion)(Number(id));
+        if (eliminada) {
+            res.json({ msg: `La reunión fue eliminada con éxito` });
+        }
+        else {
+            res.status(404).json({ msg: `No se encontró una reunión con el id ${id}` });
+        }
     }
-    else
-        res.status(404).json({ msg: `No se encontró una reunión con el id ${id}` });
+    catch (error) {
+        console.error('Error al eliminar reunión:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
 });
 exports.eliminarReunion = eliminarReunion;

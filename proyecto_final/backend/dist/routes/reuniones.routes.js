@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const reuniones_controllers_1 = require("../controllers/reuniones.controllers");
+const router = (0, express_1.Router)();
+router.post('/agregar', reuniones_controllers_1.agregarReunion);
+router.get('/listar', reuniones_controllers_1.listarReuniones);
+router.delete('/eliminar/:id', reuniones_controllers_1.eliminarReunion);
+//router.put('/editar/:id', editarReunion);
+exports.default = router;

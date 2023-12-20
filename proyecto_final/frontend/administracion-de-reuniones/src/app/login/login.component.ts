@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,24 +11,48 @@ import { LoginService } from '../login.service';
 export class LoginComponent implements OnInit {
   loginForm! : FormGroup;
 
-  constructor (private fb : FormBuilder, private service: LoginService) { }  
+  constructor (private fb : FormBuilder, private service: LoginService, private router: Router) { }  
   
   ngOnInit() {
     this.loginForm = this.fb.group({
-    usuario: ['', Validators.required ],
-    pass: ['', Validators.required]
+    name: ['', Validators.required],
+    pass:     ['', Validators.required]
   });
+  // Verificar si hay un token en el sessionStorage
+  const token = sessionStorage.getItem('token');
+  if (token) {
+    // Redirigir a la ruta '/reuniones'
+    this.router.navigate(['/reuniones']);
   }
-  login() {
-    if (this.loginForm.valid ) {
-      console.log('Formulario válido, usuario:', this.loginForm.value.usuario);
-      // lógica de autenticación con el servicio LoginService
-      this.service.login(this.loginForm.value.usuario, this.loginForm.value.pass).subscribe(token => {
-      //falta código en el suscribe (error)
-      //guardar token en el localstorage
-      sessionStorage.setItem('token',token);
-    });  
-    } 
   }
 
-}
+  login() {
+    if (this.loginForm.valid ) {
+      console.log('1-Entró a login() del componente. Formulario válido, usuario y pass:', this.loginForm.value);
+
+      this.service.login(this.loginForm.value.name, this.loginForm.value.pass).subscribe(
+       {
+        next: (token) => {
+          console.log('En login.component. El token es: ', token);
+        //sessionStorage.setItem('token',JSON.stringify(token)); 
+          sessionStorage.setItem('token', token);
+          // Redirigir a la ruta '/reuniones'
+          this.router.navigate(['/reuniones']);
+        },
+        error: (error) => {
+          console.log('En FE login.component. Error al devolver el token: ',error);
+          //this.mensaje ='Error al devolver el token', error;
+          }
+        }
+        );
+
+        
+     }
+    }
+    logout(){
+      sessionStorage.removeItem('token'); // ok? ver slide
+      
+    }
+  }
+
+
