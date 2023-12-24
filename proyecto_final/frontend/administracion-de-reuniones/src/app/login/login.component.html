@@ -7,18 +7,36 @@
     <div>
       <mat-form-field appearance="fill">
         <mat-label>Usuario</mat-label>
-        <input matInput type="text" formControlName="name" placeholder="Ingrese su usuario">
+        <input
+          matInput
+          type="text"
+          formControlName="name"
+          placeholder="Ingrese su usuario"
+        />
       </mat-form-field>
-    </div>   
+    </div>
 
     <div>
       <mat-form-field appearance="fill">
         <mat-label>Contraseña</mat-label>
-        <input matInput type="password" formControlName="pass" placeholder="Ingrese su contraseña">
+        <input
+          matInput
+          type="password"
+          formControlName="pass"
+          placeholder="Ingrese su contraseña"
+        />
       </mat-form-field>
     </div>
-    
-      <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid" >Iniciar Sesión</button>
 
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="loginForm.invalid"
+    >
+      Iniciar Sesión
+    </button>
   </form>
+  <br />
+  <h3 class="colorMensaje">{{ mensaje }}</h3>
 </div>

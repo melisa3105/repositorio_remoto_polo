@@ -1,45 +1,47 @@
 <div class="container">
+  <h2>Reuniones por día</h2>
 
-    <h2>Reuniones por día</h2>
+  <form [formGroup]="formulario" (ngSubmit)="onSubmitMostrarReunionesPorDia()">
+    <mat-form-field appearance="fill">
+      <mat-label>Seleccionar día:</mat-label>
+      <mat-select formControlName="diaSeleccionado">
+        <mat-option *ngFor="let dia of dias" [value]="dia">{{
+          dia
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <button mat-raised-button color="primary" type="submit">Mostrar</button>
+  </form>
+  <br /><br />
+  <div *ngIf="reunionesMostrar.length > 0; else noReuniones">
+    <h3>
+      Reuniones del día <strong> {{ diaSeleccionado }} </strong>
+    </h3>
+    <div>
+      <mat-list>
+        <mat-list-item class="caja" *ngFor="let reunion of reunionesMostrar">
+          <div class="fila" mat-line>
+            <strong>Hora:</strong> {{ reunion.hora }}
+            <strong>Duración:</strong> {{ reunion.duracion | formatoDuracion }}
+            <strong>Detalle:</strong> {{ reunion.detalle }}
 
-    <form [formGroup]="formulario" (ngSubmit)="onSubmitMostrarReunionesPorDia()">
-      <mat-form-field appearance="fill">
-        <mat-label>Seleccionar día:</mat-label>
-        <mat-select formControlName="diaSeleccionado">
-          <mat-option *ngFor="let dia of dias" [value]="dia">{{ dia }}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    <br>
-      <button mat-raised-button color="primary" type="submit">Mostrar</button>
-    </form>
-    <br><br>
-    <div *ngIf="reunionesMostrar.length > 0; else noReuniones">
-        <h3>Reuniones del día <strong> {{diaSeleccionado}} </strong></h3>
-        <div>
-            <mat-list>
-                <mat-list-item class="caja" *ngFor="let reunion of reunionesMostrar">
-                    <div class="fila" mat-line>
-                      
-                      <strong>Hora:</strong> {{ reunion.hora }}
-                      <strong>Duración:</strong> {{ reunion.duracion | formatoDuracion }}
-                      <strong>Detalle:</strong> {{ reunion.detalle }}
-                   
-                      <button mat-icon-button color="warn" (click)="eliminarReunion(reunion.id)">
-                        <mat-icon>delete</mat-icon>
-                      </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="eliminarReunion(reunion.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
 
-                    </div>
-
-                    <!-- Agregar botón editar <routerLink="./editar/{{reunion.id}}"> -->
-
-                </mat-list-item>
-            </mat-list>
-        </div>
+          <!-- Agregar botón editar <routerLink="./editar/{{reunion.id}}"> -->
+        </mat-list-item>
+      </mat-list>
     </div>
-    <ng-template #noReuniones>
-      <p>No hay reuniones programadas para el día seleccionado.</p>
-    </ng-template>
-    
   </div>
-  
-  
+  <ng-template #noReuniones>
+    <br />
+    <h3 class="colorMensaje">{{ mensaje }}</h3>
+  </ng-template>
+</div>

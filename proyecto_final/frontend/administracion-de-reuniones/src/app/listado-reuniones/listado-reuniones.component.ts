@@ -6,19 +6,22 @@ import { ReunionService } from '../reunion.service';
 @Component({
   selector: 'app-listado-reuniones',
   templateUrl: './listado-reuniones.component.html',
-  styleUrls: ['./listado-reuniones.component.css']
+  styleUrls: ['./listado-reuniones.component.css'],
 })
 export class ListadoReunionesComponent implements OnInit {
   mensaje = '';
   formulario: FormGroup;
   diaSeleccionado = 'Lunes';
   reuniones: Reunion[] = [];
-  reunionesMostrar : Reunion[] = [];
+  reunionesMostrar: Reunion[] = [];
   dias: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
 
-  constructor(private formBuilder: FormBuilder, private reunionService: ReunionService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private reunionService: ReunionService
+  ) {
     this.formulario = this.formBuilder.group({
-      diaSeleccionado: ['Lunes'] // valor por defecto
+      diaSeleccionado: ['Lunes'], // valor por defecto
     });
   }
 
@@ -31,19 +34,20 @@ export class ListadoReunionesComponent implements OnInit {
     this.reunionService.listarReuniones().subscribe({
       next: (reuniones) => {
         this.reuniones = reuniones;
-        this.reunionesMostrar = this.reuniones.filter(reunion => reunion.dia === this.diaSeleccionado);
+        this.reunionesMostrar = this.reuniones.filter(
+          (reunion) => reunion.dia === this.diaSeleccionado
+        );
       },
       error: (error) => {
-        this.mensaje ='Error al mostrar las reuniones:', error;
-        }
-      });
+        (this.mensaje = 'Error al mostrar las reuniones. '), error;
+      },
+    });
   }
 
-  
   eliminarReunion(id: number) {
-    this.reunionService.eliminarReunion(id).subscribe(() => 
-    this.onSubmitMostrarReunionesPorDia()
-    )
+    this.reunionService
+      .eliminarReunion(id)
+      .subscribe(() => this.onSubmitMostrarReunionesPorDia());
   }
 
   // editar?

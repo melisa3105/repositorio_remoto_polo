@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./administracion.component.css']
 })
 export class AdministracionComponent {
-
+  logout(){
+    sessionStorage.removeItem('token'); 
+    
+  }
 }
