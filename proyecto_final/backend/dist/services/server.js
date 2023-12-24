@@ -17,8 +17,7 @@ const puerto = process.env.PORT || 5555;
 const app = (0, express_1.default)();
 //Middleware verificar token:
 function verificarToken(req, res, next) {
-    //const token = req.headers['authorization'];
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWVsaXNhIiwiaXNzIjoiMjAyMy0xMi0xOVQyMzo0Njo0OS40MzhaIiwiaWF0IjoxNzAzMDI5NjA5fQ.gHDJeCzJ1C8uJ-BuYmTtFErtJbSRHpZcwKU5cuNA8II";
+    const token = req.headers.authorization;
     console.log('token que hay que verificar:', token);
     if (token) { //agregar try catch
         const payload = jsonwebtoken_1.default.verify(token, "ESTE_ES_EL_SECRET_DEL_JWT_1234");

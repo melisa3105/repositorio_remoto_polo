@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Reunion } from './reunion';
@@ -14,14 +14,20 @@ export class ReunionService {
   constructor(private http: HttpClient) { }
 
   listarReuniones(): Observable<Reunion[]> {
-    return this.http.get<Reunion[]>(`${this.url}/listar`);
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization',token!);
+    return this.http.get<Reunion[]>(`${this.url}/listar`, { headers : headers});
   }
 
   agregarReunion(reunion: Reunion): Observable<void> {
-    return this.http.post<void>(`${this.url}/agregar`, reunion)
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization',token!);
+    return this.http.post<void>(`${this.url}/agregar`, reunion, { headers : headers})
   }
 
   eliminarReunion(id: number): Observable<void>  {
-    return this.http.delete<void>(`${this.url}/eliminar/${id}`);
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization',token!);
+    return this.http.delete<void>(`${this.url}/eliminar/${id}`, { headers : headers});
   }
 }

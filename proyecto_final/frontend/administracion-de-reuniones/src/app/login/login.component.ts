@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this.fb.group({
     name: ['', Validators.required],
-    pass:     ['', Validators.required]
+    pass: ['', Validators.required]
   });
   // Verificar si hay un token en el sessionStorage
   const token = sessionStorage.getItem('token');
@@ -28,15 +28,14 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (this.loginForm.valid ) {
-      console.log('1-Entró a login() del componente. Formulario válido, usuario y pass:', this.loginForm.value);
-
+            
+      //Pasamos el nombre de usuario y contraseña y devuelve un token de tipo string
       this.service.login(this.loginForm.value.name, this.loginForm.value.pass).subscribe(
        {
         next: (token) => {
           console.log('En login.component. El token es: ', token);
-        //sessionStorage.setItem('token',JSON.stringify(token)); 
-          sessionStorage.setItem('token', token);
-          // Redirigir a la ruta '/reuniones'
+          
+          sessionStorage.setItem('token', token); // clave valor
           this.router.navigate(['/reuniones']);
         },
         error: (error) => {

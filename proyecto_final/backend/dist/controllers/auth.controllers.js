@@ -17,8 +17,8 @@ const usuario_respositories_1 = require("../repositories/usuario.respositories")
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const authUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, pass } = req.body;
-    //const nombreUsuario = name; // Reemplaza esto con el nombre de usuario real
-    //const contraseñaUsuario = pass; // Reemplaza esto con la contraseña real
+    //const nombreUsuario = name; 
+    //const contraseñaUsuario = pass;np
     console.log('3-Entró al authUsuario ', name, pass);
     try {
         const usuario = yield (0, usuario_respositories_1.getUsuario)(name, pass);
@@ -30,7 +30,9 @@ const authUsuario = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             };
             const token = jsonwebtoken_1.default.sign(payload, 'ESTE_ES_EL_SECRET_DEL_JWT_1234');
             console.log('BE el token es: ', token);
-            res.json({ token });
+            //res.json({ token }); noooooooooooooooo
+            //res.end(token); noooooooooooooo
+            res.json(token);
         }
         else {
             res.status(401).json({ error: 'Usuario no encontrado. Name y/o pass inválidos' });

@@ -17,11 +17,8 @@ const app = express();
 //Middleware verificar token:
 function verificarToken(req: Request, res: Response, next: NextFunction){
     
-    //const token = req.headers['authorization'];
-   
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoibWVsaXNhIiwiaXNzIjoiMjAyMy0xMi0xOVQyMzo0Njo0OS40MzhaIiwiaWF0IjoxNzAzMDI5NjA5fQ.gHDJeCzJ1C8uJ-BuYmTtFErtJbSRHpZcwKU5cuNA8II";
-    console.log('token que hay que verificar:',token);
-    
+    const token = req.headers.authorization; console.log('token que hay que verificar:',token);
+            
     if(token){ //agregar try catch
         const payload = jsonwebtoken.verify(token, "ESTE_ES_EL_SECRET_DEL_JWT_1234");
         console.log(payload);
