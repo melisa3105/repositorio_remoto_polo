@@ -6,10 +6,12 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AgregarReunionComponent } from './agregar-reunion/agregar-reunion.component';
 import { ListadoReunionesComponent } from './listado-reuniones/listado-reuniones.component';
 
+import { authGuard } from './auth.guard';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'reuniones', component: AdministracionComponent,
+  { path: 'reuniones', component: AdministracionComponent, canActivate: [authGuard],
       children: [
         { path: 'agregar', component: AgregarReunionComponent},
         { path: 'listar', component: ListadoReunionesComponent},
