@@ -1,6 +1,5 @@
 "use strict";
 //npm start
-//detengo ctrl + c
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -18,11 +17,10 @@ const app = (0, express_1.default)();
 //Middleware verificar token:
 function verificarToken(req, res, next) {
     const token = req.headers.authorization;
-    console.log('token que hay que verificar:', token);
-    if (token) { //agregar try catch
+    if (token) {
         const payload = jsonwebtoken_1.default.verify(token, "ESTE_ES_EL_SECRET_DEL_JWT_1234");
         console.log(payload);
-        next(); // te deja seguir
+        next();
     }
     else {
         res.status(401); //unauthorized
@@ -34,6 +32,5 @@ app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use((0, morgan_1.default)("dev"));
 app.use('/auth', auth_routes_1.default);
-app.use('/reuniones', verificarToken, reuniones_routes_1.default); //importado rutaReuniones //Servicio protegido que tiene que tener un token válido que obtengo de auth
-//app.use('/reuniones', rutaReuniones); //importado rutaReuniones //Servicio protegido que tiene que tener un token válido que obtengo de auth
+app.use('/reuniones', verificarToken, reuniones_routes_1.default);
 app.listen(puerto, () => { console.log('El servidor está escuchando en puerto: ' + puerto); });

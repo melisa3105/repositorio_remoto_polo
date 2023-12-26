@@ -1,5 +1,4 @@
 //npm start
-//detengo ctrl + c
 
 import express, {NextFunction, Request, Response} from "express";
 import morgan from "morgan";
@@ -17,12 +16,12 @@ const app = express();
 //Middleware verificar token:
 function verificarToken(req: Request, res: Response, next: NextFunction){
     
-    const token = req.headers.authorization; console.log('token que hay que verificar:',token);
+    const token = req.headers.authorization; 
             
-    if(token){ //agregar try catch
+    if(token){ 
         const payload = jsonwebtoken.verify(token, "ESTE_ES_EL_SECRET_DEL_JWT_1234");
         console.log(payload);
-        next(); // te deja seguir
+        next(); 
     } else {
         res.status(401); //unauthorized
         console.log('No hay token');
@@ -38,7 +37,6 @@ app.use(morgan("dev"));
 
 app.use('/auth', rutaAuth); 
 
-app.use('/reuniones', verificarToken, rutaReuniones); //importado rutaReuniones //Servicio protegido que tiene que tener un token válido que obtengo de auth
-//app.use('/reuniones', rutaReuniones); //importado rutaReuniones //Servicio protegido que tiene que tener un token válido que obtengo de auth
+app.use('/reuniones', verificarToken, rutaReuniones); 
 
 app.listen(puerto,() => { console.log('El servidor está escuchando en puerto: '+ puerto);});

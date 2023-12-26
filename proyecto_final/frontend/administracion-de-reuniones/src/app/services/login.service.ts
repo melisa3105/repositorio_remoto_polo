@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Usuario } from './usuario';
+import { Usuario } from '../usuario';
 import { Observable } from 'rxjs';
 
 const url = 'http://localhost:4444/auth';

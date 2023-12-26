@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Reunion } from '../reunion';
-import { ReunionService } from '../reunion.service';
+import { ReunionService } from '../services/reunion.service';
 
 @Component({
   selector: 'app-agregar-reunion',
